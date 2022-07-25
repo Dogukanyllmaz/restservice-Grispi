@@ -37,13 +37,13 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movie);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     Movie getOneMovie(@PathVariable Long id){
         return movieRepository.findById(id).
                 orElseThrow(() -> new IllegalStateException(id + " doesn't exist"));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     void deleteMovie(@PathVariable long id){
         boolean movieExists = movieRepository.existsById(id);
         if(!movieExists){
@@ -56,13 +56,13 @@ public class MovieController {
 
     // -------------------------------------- Player Methods -------------------------------------
 
-    @GetMapping("/{id}/players")
+    @GetMapping("{id}/players")
     ResponseEntity<Set<Player>> getPlayersOfMovie(@PathVariable long id){
         Movie temp = movieRepository.findById(id).orElseThrow(() -> new IllegalStateException());
         return ResponseEntity.status(HttpStatus.OK).body(temp.getPlayers());
     }
 
-    @PostMapping("/{id}/players")
+    @PostMapping("{id}/players")
     public ResponseEntity<Movie> addPlayerToMovie(@PathVariable long id, @RequestBody Player player){
         Movie temp = movieRepository.findById(id).orElseThrow(() -> new IllegalStateException());
         temp.getPlayers().add(player);
@@ -71,20 +71,20 @@ public class MovieController {
 
     // -------------------------------- Genre Methods -----------------------------------------
 
-    @GetMapping("/{id}/genres")
+    @GetMapping("{id}/genres")
     ResponseEntity<Set<Genre>> getGenresOfMovie(@PathVariable long id){
         Movie temp = movieRepository.findById(id).orElseThrow(() -> new IllegalStateException());
         return ResponseEntity.status(HttpStatus.OK).body(temp.getGenres());
     }
 
-    @PostMapping("/{id}/genres")
+    @PostMapping("{id}/genres")
     public ResponseEntity<Movie> addGenreToMovie(@PathVariable long id, @RequestBody Genre genre){
         Movie temp = movieRepository.findById(id).orElseThrow(() -> new IllegalStateException());
         temp.getGenres().add(genre);
         return ResponseEntity.status(HttpStatus.OK).body(movieRepository.save(temp));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Movie> updateGenreOfMovie(@PathVariable long id,@RequestBody Movie movie){
         Movie temp = movieRepository.findById(id).orElseThrow(() -> new IllegalStateException());
         temp.setGenres(movie.getGenres());
