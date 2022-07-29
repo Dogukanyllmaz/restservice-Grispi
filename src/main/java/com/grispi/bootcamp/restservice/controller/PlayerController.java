@@ -30,6 +30,4 @@ public class PlayerController {
         playerRepository.saveAll(player);
         return ResponseEntity.status(HttpStatus.CREATED).body((List<Player>)playerRepository.findAll());
     }
-
-
 }

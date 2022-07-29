@@ -32,6 +32,4 @@ public class GenreController {
         genreRepository.saveAll(genre);
         return ResponseEntity.status(HttpStatus.CREATED).body((List<Genre>) genreRepository.findAll());
     }
-
-
 }
