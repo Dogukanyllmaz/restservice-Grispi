@@ -2,6 +2,7 @@ package com.grispi.bootcamp.restservice.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    //@NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "Name is mandatory")
     @Column(nullable = false)
     private String name;
     private String imdbKey;

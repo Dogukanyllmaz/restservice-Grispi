@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class MovieController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
+    public ResponseEntity<Movie> createMovie(@Valid @RequestBody Movie movie) {
         movieRepository.save(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(movie);
     }
