@@ -3,7 +3,6 @@ package com.grispi.bootcamp.restservice.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "players")
 public class Player {
 
     @Id
@@ -17,7 +16,8 @@ public class Player {
 
     }
 
-    public Player(String name) {
+    public Player(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

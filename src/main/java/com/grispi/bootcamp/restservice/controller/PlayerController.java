@@ -13,23 +13,22 @@ import java.util.List;
 @RequestMapping("/players/")
 public class PlayerController {
 
-
+    @Autowired
     private PlayerRepository playerRepository;
 
-    @Autowired
     public PlayerController(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
-    @GetMapping("")
+    @GetMapping
     public List<Player> getAllPlayers() {
         return (List<Player>) playerRepository.findAll();
     }
 
-    @PostMapping("")
-    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
-        playerRepository.save(player);
-        return ResponseEntity.status(HttpStatus.CREATED).body(player);
+    @PostMapping
+    public ResponseEntity<List<Player>> createPlayer(@RequestBody List<Player> player) {
+        playerRepository.saveAll(player);
+        return ResponseEntity.status(HttpStatus.CREATED).body((List<Player>)playerRepository.findAll());
     }
 
 

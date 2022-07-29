@@ -8,15 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/genres/")
 public class GenreController {
 
+    @Autowired
     private GenreRepository genreRepository;
 
-    @Autowired
+
     public GenreController(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
@@ -27,9 +28,9 @@ public class GenreController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Genre> createGenre(@RequestBody Genre genre) {
-        genreRepository.save(genre);
-        return ResponseEntity.status(HttpStatus.CREATED).body(genre);
+    public ResponseEntity<List<Genre>> createGenre(@RequestBody List<Genre> genre) {
+        genreRepository.saveAll(genre);
+        return ResponseEntity.status(HttpStatus.CREATED).body((List<Genre>) genreRepository.findAll());
     }
 
 

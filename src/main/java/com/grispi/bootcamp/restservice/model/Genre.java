@@ -10,23 +10,18 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "genres")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","genres"})
 public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "genre_id")
     private Long id;
-    @Column(name = "genre_name")
     private String name;
-
-
     protected Genre() {
 
     }
 
-    public Genre(String name) {
+    public Genre(Long id,String name) {
+        this.id = id;
         this.name = name;
     }
 

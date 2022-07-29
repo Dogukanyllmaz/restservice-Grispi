@@ -1,40 +1,38 @@
 package com.grispi.bootcamp.restservice.model;
 
 
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
+
+
+
+
+
 @Entity
-@Table(name = "movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "movie_id")
     private Long id;
-    @Column(name = "movie_name")
+    //@NotBlank(message = "Name is mandatory")
+    @Column(nullable = false)
     private String name;
-    @Column(name = "movie_imdbKey")
     private String imdbKey;
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "movie_genre",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Genre> genres = new HashSet<>();
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "movie_player",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "player_id"))
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Player> players = new HashSet<>();
-
 
     protected Movie() {
     }
 
-    public Movie(String name, String imdbKey) {
+    public Movie(String name, String imdbKey, Set<Genre> genres, Set<Player> players) {
         this.name = name;
         this.imdbKey = imdbKey;
+        this.genres = genres;
+        this.players = players;
     }
 
     public Long getId() { return id; }
